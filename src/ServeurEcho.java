@@ -10,10 +10,9 @@ public class ServeurEcho {
     {
         Socket socket = null;
         ServerSocket serveur = null;
-        PrintWriter writer = null;
-        BufferedReader reader = null;
         boolean enService = true;
         String ligne = "";
+        
         try {
 
             serveur = new ServerSocket(port);
