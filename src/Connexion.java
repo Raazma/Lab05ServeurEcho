@@ -6,10 +6,10 @@ import java.net.*;
 
 public class Connexion extends Terminateur implements Runnable {
 
-    Socket socket = null;
+  public  Socket socket = null;
     public Connexion(Socket lesocket)
     {
-      socket = lesocket;
+        socket = lesocket;
     }
 
     public void run()
@@ -27,15 +27,15 @@ public class Connexion extends Terminateur implements Runnable {
             while (t.isAlive())
             {
                 writer.println(str);
-                System.out.print(reader.readLine());
+                System.out.println( reader.readLine());
                 writer.flush();
             }
             writer.close();
-
+            socket.close();
         }
         catch (IOException e)
         {
-          System.out.print("je plante a connection");
+            System.out.print("je plante a connection");
         }
 
     }
