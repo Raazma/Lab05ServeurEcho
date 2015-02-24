@@ -10,16 +10,22 @@ public class ServeurEcho {
     {
         Socket socket = null;
         ServerSocket serveur = null;
-        boolean enService = true;
         String ligne = "";
         
         try {
-
+            Thread schwarzi = new Thread(new Terminateur());
+            schwarzi.start();
             serveur = new ServerSocket(port);
-
-            while (enService) {
-
+            serveur.setSoTimeout(500);
+            while (schwarzi.isAlive()) {
+               
+                try {
                 Socket client = serveur.accept();
+                }
+                catch (SocketTimeoutException  e)
+                {
+                  
+                }
                 System.out.println("Client connecte");
 
 
@@ -27,13 +33,13 @@ public class ServeurEcho {
                 Thread t = new Thread(connexion);
                 t.start();
 
-              if(!t.isAlive())
-                  enService = false;
-
+               
+                  
+System.out.println(schwarzi.isAlive());
 
 
             }
-
+            System.out.println("Im out of here Suckers!!");
             socket.close();
             serveur.close();
         }

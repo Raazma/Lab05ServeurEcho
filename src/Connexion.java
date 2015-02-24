@@ -4,7 +4,7 @@
 import  java.io.*;
 import java.net.*;
 
-public class Connexion extends Terminateur implements Runnable {
+public class Connexion implements Runnable {
 
   public  Socket socket = null;
     public Connexion(Socket lesocket)
@@ -15,19 +15,18 @@ public class Connexion extends Terminateur implements Runnable {
     public void run()
     {
         String ligne = new String();
-
-        Terminateur term = new Terminateur();
-        Thread t = new Thread(term);
-        t.start();
+         
+        
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter( new OutputStreamWriter(socket.getOutputStream()));
-
-            while (t.isAlive())
+            ligne = reader.readLine();
+            while (!ligne.isEmpty())
             {
-                writer.println(str);
-                System.out.println( reader.readLine());
+               ligne = reader.readLine();
+                writer.println(ligne);
+                
                 writer.flush();
             }
             writer.close();
