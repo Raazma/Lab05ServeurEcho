@@ -14,7 +14,6 @@ public class ServeurEcho {
         
         try {
             Thread schwarzi = new Thread(new Terminateur());
-            schwarzi.setDeamon(true);
             schwarzi.start();
             serveur = new ServerSocket(port);
              serveur.setSoTimeout(500);
@@ -22,16 +21,18 @@ public class ServeurEcho {
                
                 try {
                 Socket client = serveur.accept();
+                Connexion connexion = new Connexion(client);
+                Thread t = new Thread(connexion);
+                t.setDaemon(true);
+                t.start();  
+                System.out.println("Client connecte");
                 }
                 catch (SocketTimeoutException  e)
                 {
                   
                 }
-                System.out.println("Client connecte");
+             
 
-                Connexion connexion = new Connexion(client);
-                Thread t = new Thread(connexion);
-                t.start();
             }
             
             System.out.println("Im out of here Suckers!!");
@@ -41,6 +42,7 @@ public class ServeurEcho {
         catch (IOException e)
         {
             System.out.println(e);
+            System.exit(1);
         }
 
     }
