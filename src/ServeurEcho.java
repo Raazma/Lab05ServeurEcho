@@ -14,9 +14,10 @@ public class ServeurEcho {
         
         try {
             Thread schwarzi = new Thread(new Terminateur());
+            schwarzi.setDeamon(true);
             schwarzi.start();
             serveur = new ServerSocket(port);
-            serveur.setSoTimeout(500);
+             serveur.setSoTimeout(500);
             while (schwarzi.isAlive()) {
                
                 try {
@@ -28,17 +29,11 @@ public class ServeurEcho {
                 }
                 System.out.println("Client connecte");
 
-
                 Connexion connexion = new Connexion(client);
                 Thread t = new Thread(connexion);
                 t.start();
-
-               
-                  
-System.out.println(schwarzi.isAlive());
-
-
             }
+            
             System.out.println("Im out of here Suckers!!");
             socket.close();
             serveur.close();
