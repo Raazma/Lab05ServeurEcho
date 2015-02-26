@@ -21,20 +21,20 @@ public class Connexion implements Runnable {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter( new OutputStreamWriter(socket.getOutputStream()));
-            ligne = reader.readLine();
-            while (!ligne.isEmpty())
+           
+            do
             {
                ligne = reader.readLine();
                 writer.println(ligne);
                 
                 writer.flush();
-            }
+            }while (!ligne.isEmpty());
             writer.close();
             socket.close();
         }
         catch (IOException e)
         {
-            System.out.print("je plante a connection");
+           System.exit(1);
         }
 
     }

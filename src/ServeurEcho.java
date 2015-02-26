@@ -8,7 +8,7 @@ public class ServeurEcho {
 
     public void LancerServer(int port)
     {
-        Socket socket = null;
+        Socket client = null;
         ServerSocket serveur = null;
         String ligne = "";
         
@@ -20,7 +20,7 @@ public class ServeurEcho {
             while (schwarzi.isAlive()) {
                
                 try {
-                Socket client = serveur.accept();
+               client = serveur.accept();
                 Connexion connexion = new Connexion(client);
                 Thread t = new Thread(connexion);
                 t.setDaemon(true);
@@ -34,14 +34,14 @@ public class ServeurEcho {
              
 
             }
-            
-            System.out.println("Im out of here Suckers!!");
-            socket.close();
+             client.close();
             serveur.close();
+            System.out.println("Im out of here Fuckers!!");
+           
         }
         catch (IOException e)
         {
-            System.out.println(e);
+            //System.out.println(e);
             System.exit(1);
         }
 
@@ -49,8 +49,11 @@ public class ServeurEcho {
 
     public static void main(String args[] )
     {
+         
         ServeurEcho leServeur = new ServeurEcho();
         leServeur.LancerServer(7);
+       
+        
     }
 
 }
