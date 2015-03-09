@@ -29,6 +29,7 @@ public class Connexion implements Runnable {
                 
                 writer.flush();
             }while (!ligne.isEmpty());
+            reader.close();
             writer.close();
             socket.close();
         }
