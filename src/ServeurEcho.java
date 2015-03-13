@@ -13,11 +13,11 @@ public class ServeurEcho {
         String ligne = "";
         
         try {
-            Thread schwarzi = new Thread(new Terminateur());
-            schwarzi.start();
-            serveur = new ServerSocket(port);
+             Thread schwarzi = new Thread(new Terminateur());
+             schwarzi.start();
+             serveur = new ServerSocket(port);
              serveur.setSoTimeout(500);
-            while (schwarzi.isAlive()) {
+             while (schwarzi.isAlive()) {
                
                 try {
                client = serveur.accept();
@@ -26,25 +26,33 @@ public class ServeurEcho {
                 t.setDaemon(true);
                 t.start();  
                 System.out.println("Client connecte");
+                
                 }
                 catch (SocketTimeoutException  e)
                 {
                   
                 }
-             
-
+               catch(NullPointerException e)
+               {
+          
+               }
+           
+           
+          
+          
             }
+        
              client.close();
-            serveur.close();
-            System.out.println("Im out of here Fuckers!!");
+             serveur.close();
+             System.out.println("Im out of here Fuckers!!");
            
         }
         catch (IOException e)
         {
             //System.out.println(e);
-            System.exit(1);
-        }
-
+            
+        }      
+         
     }
 
     public static void main(String args[] )
